@@ -1,0 +1,12 @@
+server:
+  port: ${TEMPERATURE_READER_SERVER_PORT:8900}
+  servlet:
+    context-path: /temperature-reader
+spring:
+  application:
+    name: temperature-reader
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+kafka:
+  url: ${KAFKA_URL:127.0.0.1:29092}

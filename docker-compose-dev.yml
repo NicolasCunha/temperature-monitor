@@ -1,0 +1,79 @@
+version: ‘3.7'
+
+services:
+  postgres:
+    image: postgres:latest
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - temperature-monitor-dev-postgresDb:/var/lib/postgresql/data
+    networks: 
+      - temperature-monitor-dev
+    env_file:
+      - dev.env
+    restart: always
+    ports:
+      - "5432:5432"
+
+  pgAdmin:
+    image: dpage/pgadmin4:latest
+    volumes:
+      - temperature-monitor-dev-pgAdmin:/var/lib/pgadmin/
+    restart: always
+    ports:
+      - "16543:80"
+    networks: 
+      - temperature-monitor-dev
+    env_file:
+      - dev.env
+    depends_on:
+      - postgres
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:6.1.1
+    networks: 
+      - temperature-monitor-dev
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 2181:2181
+    
+  kafka:
+    image: confluentinc/cp-kafka:6.1.1
+    networks: 
+      - temperature-monitor-dev
+    depends_on:
+      - zookeeper
+    ports:
+      - 9092:9092
+      - 29092:29092
+    volumes:
+      - temperature-monitor-dev-kafka_data:/var/lib/kafka/data
+    env_file:
+      - dev.env
+
+  akhq:
+    image: tchiotludo/akhq:latest # Or specify a version like tchiotludo/akhq:0.25.0
+    container_name: akhq
+    ports:
+      - 1900:8080
+    depends_on:
+      - kafka
+    networks: 
+      - temperature-monitor-dev
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq:
+          connections:
+            docker-kafka:
+              properties:
+                bootstrap.servers: kafka:9092
+
+networks: 
+  temperature-monitor-dev:
+    driver: bridge
+
+volumes:
+  temperature-monitor-dev-kafka_data:
+  temperature-monitor-dev-pgAdmin:
+  temperature-monitor-dev-postgresDb:

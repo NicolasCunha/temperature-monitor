@@ -1,0 +1,101 @@
+{
+	"info": {
+		"_postman_id": "98880509-873f-48d1-a01f-f554f567540e",
+		"name": "Temperature Monitor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9264868"
+	},
+	"item": [
+		{
+			"name": "Reader",
+			"item": [
+				{
+					"name": "HealthCheck",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{TEMPERATURE_READER_URL}}/temperature-reader/healthcheck",
+							"host": [
+								"{{TEMPERATURE_READER_URL}}"
+							],
+							"path": [
+								"temperature-reader",
+								"healthcheck"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Reading",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"format\" : \"CELSIUS\",\r\n    \"temperature\" : 10.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TEMPERATURE_READER_URL}}/temperature-reader/reader",
+							"host": [
+								"{{TEMPERATURE_READER_URL}}"
+							],
+							"path": [
+								"temperature-reader",
+								"reader"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Storage",
+			"item": [
+				{
+					"name": "HealthCheck",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{TEMPERATURE_STORAGE_URL}}/temperature-storage/healthcheck",
+							"host": [
+								"{{TEMPERATURE_STORAGE_URL}}"
+							],
+							"path": [
+								"temperature-storage",
+								"healthcheck"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Stored Readings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{TEMPERATURE_STORAGE_URL}}/temperature-storage/storage",
+							"host": [
+								"{{TEMPERATURE_STORAGE_URL}}"
+							],
+							"path": [
+								"temperature-storage",
+								"storage"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

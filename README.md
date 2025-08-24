@@ -65,7 +65,7 @@ And by default, this will set the following environment variables ([dev.env](dev
 
 ## Running on Docker with local containers
 
-Services can be built and run along the required dependencies using the following command:
+Services can be built and run alongside the required dependencies using the following command:
 
 ```bash
 docker compose -f docker-compose-homolog.yml up -d

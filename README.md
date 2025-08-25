@@ -3,7 +3,7 @@
 Simple project to showcase usage of Kafka events between two different services.
 
 ## Project structure
-- [Temperature Reader](/temperature-reader/) is a service that registers temperatures and publishes this event to Kafka.
+- [Temperature Reader](/temperature-reader/) registers temperatures and publishes this event to Kafka.
 - [Temperature Storage](/temperature-storage/) reads the temperature registered and persists them on a Postgres database.
 
 ## Http Requests

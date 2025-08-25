@@ -6,9 +6,22 @@ Simple project to showcase usage of Kafka events between two different services.
 - [Temperature Reader](/temperature-reader/) registers temperatures and publishes this event to Kafka.
 - [Temperature Storage](/temperature-storage/) reads the temperature registered and persists them on a Postgres database.
 
-## Http Requests
+## RESTful API
+
+Temperature Reader exposes an endpoint that allow creating a temperature reading, such as:
+
+```json
+{
+  "temperature" : 15.0,
+  "format" : "CELSIUS"
+}
+```
+
+While Temperature Storage lists those readings.
 
 To create and list temperature readings, you can use the Postman Collection as an example.
+
+Further documentation is on Swagger, which is available at <code>/swagger-ui.html</code>
 
 ## Technologies
 
@@ -91,3 +104,5 @@ And by default, this will set the following environment variables ([homolog.env]
 | TEMPERATURE_STORAGE_SERVER_PORT         | 9000                                                       |
 | KAFKA_URL                               | kafka:9092                                                 |
 | POSTGRES_URL                            | jdbc:postgresql://postgres:5432/temperature-monitor        |
+
+Ports can be changed freely, but make sure these changes are reflected on the docker-compose file.
